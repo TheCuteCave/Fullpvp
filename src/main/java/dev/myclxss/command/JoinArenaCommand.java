@@ -96,6 +96,8 @@ public class JoinArenaCommand implements CommandExecutor {
                     }
 
                     if (inventarioVacio) {
+
+                        player.getInventory().clear();
                         // Si el inventario está vacío, dale una armadura de diamante
                         player.getInventory().setItem(0, Items.swordKit);
                         player.getInventory().setItem(1, Items.rodKit);

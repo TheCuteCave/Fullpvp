@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -85,8 +84,7 @@ public class CombatListener implements Listener {
                 jugadoresEnCombate.remove(jugadorDesconectado);
                 jugadoresEnCombate.remove(jugadorAtacante);
                 jugadorDesconectado.setHealth(0.0); // Hacer que el jugador muera instantáneamente
-                Bukkit.broadcastMessage(jugadorAtacante.getName() + " ha derrotado a " + jugadorDesconectado.getName()
-                        + " en combate.");
+                Bukkit.broadcastMessage(jugadorAtacante.getName() + " ha derrotado a " + jugadorDesconectado.getName()+ " en combate.");
             }
             if (API.getInstance().getArenaUsers().contains(jugadorDesconectado.getUniqueId())) {
                 API.getInstance().getArenaUsers().remove(jugadorDesconectado.getUniqueId());
@@ -99,7 +97,7 @@ public class CombatListener implements Listener {
         Player player = event.getEntity();
         Player killer = player.getKiller();
 
-        event.setDeathMessage(null);
+        event.setDeathMessage(player.getName() + ChatColor.DARK_RED + " " + "Murio");
 
         if (API.getInstance().getArenaUsers().contains(player.getUniqueId())) {
             API.getInstance().getArenaUsers().remove(player.getUniqueId());
