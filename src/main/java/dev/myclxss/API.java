@@ -13,6 +13,7 @@ import dev.myclxss.components.Files;
 import dev.myclxss.components.Items;
 import dev.myclxss.listener.CombatListener;
 import dev.myclxss.listener.JoinListener;
+import dev.myclxss.listener.ProtectionListener;
 
 public class API {
 
@@ -45,6 +46,7 @@ public class API {
 
         pluginManager.registerEvents(new JoinListener(), main);
         pluginManager.registerEvents(new CombatListener(), main);
+        pluginManager.registerEvents(new ProtectionListener(), main);
 
     }
 

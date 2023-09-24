@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import dev.myclxss.API;
+import dev.myclxss.components.Items;
 
 public class CombatListener implements Listener {
 
@@ -77,10 +78,18 @@ public class CombatListener implements Listener {
     @EventHandler
     public void onDead(PlayerDeathEvent event) {
         Player player = event.getEntity();
+        Player killer = player.getKiller();
+
+        event.setDeathMessage(null);
 
         if (API.getInstance().getArenaUsers().contains(player.getUniqueId())) {
             API.getInstance().getArenaUsers().remove(player.getUniqueId());
             player.sendMessage(ChatColor.YELLOW + "Moriste estando dentro de laa lista, y fuiste removido");
+        }
+        Bukkit.broadcastMessage(killer.getName() + " ha matado a " + player.getName() + " en combate.");
+
+        if (killer != null) {
+            killer.getInventory().addItem(Items.goldenappleKit);
         }
 
     }
