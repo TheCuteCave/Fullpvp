@@ -65,7 +65,8 @@ public class CombatListener implements Listener {
                 jugadoresEnCombate.remove(jugadorDesconectado);
                 jugadoresEnCombate.remove(jugadorAtacante);
                 jugadorDesconectado.setHealth(0.0); // Hacer que el jugador muera instantáneamente
-                Bukkit.broadcastMessage(jugadorAtacante.getName() + " ha derrotado a " + jugadorDesconectado.getName()+ " en combate.");
+                Bukkit.broadcastMessage(jugadorAtacante.getName() + " ha derrotado a " + jugadorDesconectado.getName()
+                        + " en combate.");
             }
             if (API.getInstance().getArenaUsers().contains(jugadorDesconectado.getUniqueId())) {
                 API.getInstance().getArenaUsers().remove(jugadorDesconectado.getUniqueId());
