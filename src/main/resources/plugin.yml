@@ -1,0 +1,10 @@
+name: Fullpvp
+version: '${project.version}'
+main: dev.myclxss.Fullpvp
+
+commands:
+  fullpvp:
+    description: main command
+
+  join:
+    description: join command

@@ -1,0 +1,17 @@
+HELP-MESSAGE:
+- "&c&lMensaje de Ayuda"
+- "&r"
+- "&6Linea 1"
+- "&aLinea 2"
+- "&eLinea 3"
+
+SPAWN:
+  SET-LOCATION: "&2(✓) &aLa ubicacion del spawn se coloco correctamente."
+
+ARENA:
+  SET-LOCATION: "&2() &aLa ubicacion de la arena se coloco correctamente."  
+
+ERROR:
+  NO-PERMISSION: "&4(✕) &cNo tienes permisos para usar este comando."
+  SPAWN-LOCATION: "&4(✕) &cLa ubicacion no existe."
+  ARENA-LOCATION: "&4(✕) &cLa ubicacion de la arena no existe."
