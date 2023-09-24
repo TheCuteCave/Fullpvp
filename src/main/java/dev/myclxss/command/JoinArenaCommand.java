@@ -28,7 +28,13 @@ public class JoinArenaCommand implements CommandExecutor {
         Player player = (Player) sender;
 
         if (args.length == 0) {
-            startCountdown(player);
+
+            if (API.getInstance().getArenaUsers().contains(player.getUniqueId())) {
+                player.sendMessage("ya estas dentro de la lista, no puedes volver a entrar");
+                return true;
+            } else {
+                startCountdown(player);
+            }
             return true;
         }
         return false;
@@ -85,16 +91,5 @@ public class JoinArenaCommand implements CommandExecutor {
 
         countdownTask.runTaskTimer(API.getInstance().getMain(), 0L, 20L); // Ejecutar cada segundo (20 ticks)
         countdownTasks.put(player, countdownTask);
-    }
-
-    private void cancelCountdown(Player player) {
-        if (countdownTasks.containsKey(player)) {
-            BukkitRunnable countdownTask = countdownTasks.get(player);
-            countdownTask.cancel();
-            countdownTasks.remove(player);
-            player.sendMessage("Cuenta regresiva cancelada.");
-        } else {
-            player.sendMessage("No hay una cuenta regresiva para cancelar.");
-        }
     }
 }

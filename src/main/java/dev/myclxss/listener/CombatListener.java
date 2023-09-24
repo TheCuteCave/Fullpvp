@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -63,10 +65,23 @@ public class CombatListener implements Listener {
                 jugadoresEnCombate.remove(jugadorDesconectado);
                 jugadoresEnCombate.remove(jugadorAtacante);
                 jugadorDesconectado.setHealth(0.0); // Hacer que el jugador muera instantáneamente
-                Bukkit.broadcastMessage(jugadorAtacante.getName() + " ha derrotado a " + jugadorDesconectado.getName()
-                        + " en combate.");
+                Bukkit.broadcastMessage(jugadorAtacante.getName() + " ha derrotado a " + jugadorDesconectado.getName()+ " en combate.");
+            }
+            if (API.getInstance().getArenaUsers().contains(jugadorDesconectado.getUniqueId())) {
+                API.getInstance().getArenaUsers().remove(jugadorDesconectado.getUniqueId());
             }
         }
+    }
+
+    @EventHandler
+    public void onDead(PlayerDeathEvent event) {
+        Player player = event.getEntity();
+
+        if (API.getInstance().getArenaUsers().contains(player.getUniqueId())) {
+            API.getInstance().getArenaUsers().remove(player.getUniqueId());
+            player.sendMessage(ChatColor.YELLOW + "Moriste estando dentro de laa lista, y fuiste removido");
+        }
+
     }
     // Resto del código como se mencionó en respuestas anteriores...
 
