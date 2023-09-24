@@ -1,15 +1,18 @@
 package dev.myclxss.listener;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.craftbukkit.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -51,6 +54,22 @@ public class CombatListener implements Listener {
                 reiniciarTemporizadorTag(jugadorAtacante);
                 reiniciarTemporizadorTag(jugadorDefensor);
 
+            }
+        }
+    }
+
+    @EventHandler
+    public void commandBlock(PlayerCommandPreprocessEvent event) {
+        
+        Player player = event.getPlayer();
+
+        if (estaEnCombate(player)){
+            List<String> blocklist = API.getInstance().getLang().getStringList("COMMANDS.DENY-EJECUTE");
+            for (String s : blocklist) {
+                if (event.getMessage().startsWith(s)) {
+                    event.setCancelled(true);
+                    event.getPlayer().sendMessage(API.getInstance().getLang().getString("ERROR.NO-PERMISSION", true));
+                }
             }
         }
     }

@@ -70,6 +70,7 @@ public class JoinArenaCommand implements CommandExecutor {
                         player.sendMessage(API.getInstance().getLang().getString("ERROR.ARENA-LOCATION", true));
                         cancel();
                         countdownTasks.remove(player);
+                        return;
                     }
                     if (API.getInstance().getArenaUsers().contains(player.getUniqueId())) {
                         API.getInstance().getArenaUsers().remove(player.getUniqueId());

@@ -11,6 +11,10 @@ SPAWN:
 ARENA:
   SET-LOCATION: "&2() &aLa ubicacion de la arena se coloco correctamente."  
 
+COMMANDS:
+  DENY-EJECUTE:
+  - "/leave"
+
 ERROR:
   NO-PERMISSION: "&4(✕) &cNo tienes permisos para usar este comando."
   SPAWN-LOCATION: "&4(✕) &cLa ubicacion no existe."
