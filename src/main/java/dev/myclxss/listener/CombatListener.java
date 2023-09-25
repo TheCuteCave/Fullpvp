@@ -20,13 +20,13 @@ import dev.myclxss.components.Items;
 
 public class CombatListener implements Listener {
 
-    private Map<Player, Player> jugadoresEnCombate = new HashMap<>();
+    private final Map<Player, Player> jugadoresEnCombate = new HashMap<>();
 
-    private Map<Player, Integer> temporizadoresCombate = new HashMap<>();
-    private Map<Player, Integer> temporizadoresTag = new HashMap<>();
+    private final Map<Player, Integer> temporizadoresCombate = new HashMap<>();
+    private final Map<Player, Integer> temporizadoresTag = new HashMap<>();
 
-    private int tiempoInactividadCombate = 60; // 10 segundos de inactividad en combate antes de finalizar
-    private int tiempoTag = 60; // 10 segundos de "tag" antes de eliminarlo
+    private final int tiempoInactividadCombate = 60; // 10 segundos de inactividad en combate antes de finalizar
+    private final int tiempoTag = 60; // 10 segundos de "tag" antes de eliminarlo
 
     // if (API.getInstance().getArenaUsers().contains(player.getUniqueId())) {
 
@@ -59,10 +59,10 @@ public class CombatListener implements Listener {
 
     @EventHandler
     public void commandBlock(PlayerCommandPreprocessEvent event) {
-        
+
         Player player = event.getPlayer();
 
-        if (estaEnCombate(player)){
+        if (estaEnCombate(player)) {
             List<String> blocklist = API.getInstance().getLang().getStringList("COMMANDS.DENY-EJECUTE");
             for (String s : blocklist) {
                 if (event.getMessage().startsWith(s)) {
@@ -84,11 +84,9 @@ public class CombatListener implements Listener {
                 jugadoresEnCombate.remove(jugadorDesconectado);
                 jugadoresEnCombate.remove(jugadorAtacante);
                 jugadorDesconectado.setHealth(0.0); // Hacer que el jugador muera instantáneamente
-                Bukkit.broadcastMessage(jugadorAtacante.getName() + " ha derrotado a " + jugadorDesconectado.getName()+ " en combate.");
+                Bukkit.broadcastMessage(jugadorAtacante.getName() + " ha derrotado a " + jugadorDesconectado.getName() + " en combate.");
             }
-            if (API.getInstance().getArenaUsers().contains(jugadorDesconectado.getUniqueId())) {
-                API.getInstance().getArenaUsers().remove(jugadorDesconectado.getUniqueId());
-            }
+            API.getInstance().getArenaUsers().remove(jugadorDesconectado.getUniqueId());
         }
     }
 

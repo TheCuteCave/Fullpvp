@@ -1,10 +1,10 @@
 package dev.myclxss.components;
 
+import java.lang.reflect.Constructor;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import java.lang.reflect.Constructor;
 
 public class TitleAPI {
 
