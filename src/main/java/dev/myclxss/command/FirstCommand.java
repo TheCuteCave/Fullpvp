@@ -72,6 +72,21 @@ public class FirstCommand implements CommandExecutor {
                 player.sendMessage(API.getInstance().getLang().getString("ARENA.SET-LOCATION", true));
                 return true;
             }
+            if (args.length > 1 && args[1].equalsIgnoreCase("tutorial")) {
+                if (!player.hasPermission("fullpvp.settutorial") || !player.hasPermission("fullpvp.all")) {
+                    player.sendMessage(API.getInstance().getLang().getString("ERROR.NO-PERMISSION"));
+                    return true;
+                }
+                API.getInstance().getLocations().set("TUTORIAL.WORLD", player.getLocation().getWorld().getName());
+                API.getInstance().getLocations().set("TUTORIAL.X", Double.valueOf(player.getLocation().getX()));
+                API.getInstance().getLocations().set("TUTORIAL.Y", Double.valueOf(player.getLocation().getY()));
+                API.getInstance().getLocations().set("TUTORIAL.Z", Double.valueOf(player.getLocation().getZ()));
+                API.getInstance().getLocations().set("TUTORIAL.YAW", Float.valueOf(player.getLocation().getYaw()));
+                API.getInstance().getLocations().set("TUTORIAL.PITCH", Float.valueOf(player.getLocation().getPitch()));
+                API.getInstance().getLocations().save();
+                player.sendMessage(API.getInstance().getLang().getString("TUTORIAL.SET-LOCATION", true));
+                return true;
+            }
         }
         return false;
     }

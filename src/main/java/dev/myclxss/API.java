@@ -10,15 +10,17 @@ import org.bukkit.plugin.PluginManager;
 import dev.myclxss.command.FirstCommand;
 import dev.myclxss.command.JoinArenaCommand;
 import dev.myclxss.command.LeaveArenaCommand;
+import dev.myclxss.command.TutorialCommand;
 import dev.myclxss.components.Files;
 import dev.myclxss.components.Items;
-import dev.myclxss.listener.CombatListener;
 import dev.myclxss.listener.JoinListener;
 import dev.myclxss.listener.ProtectionListener;
+import dev.myclxss.listener.TutorialListener;
 
 public class API {
 
     private final List<UUID> arenaUsers = new ArrayList<>();
+    private final List<UUID> tutorialUsers = new ArrayList<>();
 
     private static API instance;
     private final Fullpvp main;
@@ -46,8 +48,8 @@ public class API {
         PluginManager pluginManager = Bukkit.getPluginManager();
 
         pluginManager.registerEvents(new JoinListener(), main);
-        pluginManager.registerEvents(new CombatListener(), main);
         pluginManager.registerEvents(new ProtectionListener(), main);
+        pluginManager.registerEvents(new TutorialListener(), main);
 
     }
 
@@ -56,6 +58,7 @@ public class API {
         main.getCommand("fullpvp").setExecutor(new FirstCommand());
         main.getCommand("join").setExecutor(new JoinArenaCommand());
         main.getCommand("leave").setExecutor(new LeaveArenaCommand());
+        main.getCommand("tutorial").setExecutor(new TutorialCommand());
 
     }
 
@@ -69,6 +72,10 @@ public class API {
 
     public List<UUID> getArenaUsers() {
         return arenaUsers;
+    }
+
+    public List<UUID> getTutorialUsers() {
+        return tutorialUsers;
     }
 
     public Files getLang() {

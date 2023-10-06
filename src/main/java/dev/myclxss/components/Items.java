@@ -23,6 +23,9 @@ public class Items {
     public static ItemStack legginsKit;
     public static ItemStack bootsKit;
 
+    // Item del Tutorial
+    public static ItemStack tutorialItem;
+
     public static void init() {
 
         // Items del lobby
@@ -37,6 +40,9 @@ public class Items {
         createChestplateKit();
         createLeggingsKit();
         createBootsKit();
+
+        // Items del Tutorial
+        createTutorialItem();
     }
 
     // Items del lobby
@@ -87,7 +93,8 @@ public class Items {
         item.setItemMeta(meta);
         rodKit = item;
     }
-    private static void createGoldenApple(){
+
+    private static void createGoldenApple() {
         ItemStack item = new ItemStack(Material.GOLDEN_APPLE, 3);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(Color.set("&6Manzanita dorada"));
@@ -105,7 +112,8 @@ public class Items {
         lore.add(Color.set("&alore xd"));
         meta.setLore(lore);
         meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
-        meta.addEnchant(Enchantment.DURABILITY, 1, true);;
+        meta.addEnchant(Enchantment.DURABILITY, 1, true);
+        ;
         item.setItemMeta(meta);
         helmetKit = item;
     }
@@ -118,7 +126,8 @@ public class Items {
         lore.add(Color.set("&alore xd"));
         meta.setLore(lore);
         meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
-        meta.addEnchant(Enchantment.DURABILITY, 1, true);;
+        meta.addEnchant(Enchantment.DURABILITY, 1, true);
+        ;
         item.setItemMeta(meta);
         chestplateKit = item;
     }
@@ -131,7 +140,8 @@ public class Items {
         lore.add(Color.set("&alore xd"));
         meta.setLore(lore);
         meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
-        meta.addEnchant(Enchantment.DURABILITY, 1, true);;
+        meta.addEnchant(Enchantment.DURABILITY, 1, true);
+        ;
         item.setItemMeta(meta);
         legginsKit = item;
     }
@@ -144,9 +154,22 @@ public class Items {
         lore.add(Color.set("&alore xd"));
         meta.setLore(lore);
         meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
-        meta.addEnchant(Enchantment.DURABILITY, 1, true);;
+        meta.addEnchant(Enchantment.DURABILITY, 1, true);
+        ;
         item.setItemMeta(meta);
         bootsKit = item;
+    }
+
+    // Items del Tutorial
+    private static void createTutorialItem() {
+        ItemStack item = new ItemStack(Material.BED, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(Color.set("&cSalir del Tutorial"));
+        List<String> lore = new ArrayList<>();
+        lore.add(Color.set("&alore xd"));
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        tutorialItem = item;
     }
 
 }

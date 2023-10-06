@@ -4,18 +4,85 @@ HELP-MESSAGE:
 - "&6Linea 1"
 - "&aLinea 2"
 - "&eLinea 3"
-
+  
 SPAWN:
   SET-LOCATION: "&2(✓) &aLa ubicacion del spawn se coloco correctamente."
 
 ARENA:
   SET-LOCATION: "&2() &aLa ubicacion de la arena se coloco correctamente."  
-
-COMMANDS:
-  DENY-EJECUTE:
-  - "/leave"
+  IN-THE-QUEUE: "&4(|) &cYa estas en la cuenta regresiva."
+  CANCEL-QUEUE: "&4(|) &cCancelaste la cuenta regresiva."
+  VOID-IVENTORY: "&2(|) &aKit DEFAULT equipado con exito."
+  SEND-COMBAT: "&2(|) &aFuiste enviado a la zona de combate."
+  ERROR-LOCATION: "&4(|) &cLa ubicacion de la arena no existe."
+  ERROR-JOIN-ARENA: "&4(|) &CYa te encuentras dentro de la arena."
+  JOIN-MESSAGE:
+  - ""
+  - "&a&lHAS ENTRADO A LA ARENA"
+  - ""
+  LEAVE-MESSAGE:
+  - ""
+  - "&C&LHAS SALIDO DE LA ARENA"
+  - ""
 
 ERROR:
   NO-PERMISSION: "&4(✕) &cNo tienes permisos para usar este comando."
-  SPAWN-LOCATION: "&4(✕) &cLa ubicacion no existe."
-  ARENA-LOCATION: "&4(✕) &cLa ubicacion de la arena no existe."
+  SPAWN-LOCATION: "&4(|) &cLa ubicacion del spawn no existe."
+
+TUTORIAL:
+  SET-LOCATION: "&2(|) &aLa ubicacion del tutorial se establecio con exito."
+  ERROR-LOCATION: "&4(|) &cLa ubicacion del tutorial no existe."
+  JOIN-MESSAGE:
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - "&d(|) &5&lTUTORIAL &d(|)"
+  - ""
+  - "&fHaz entrado el tutorial de fullpvp"
+  - "&faqui encontraras cosas de ayuda para"
+  - "&ftus primeros pasos en la modalidad."
+  - ""
+  - "&cUsa la cama para salir del tutorial."
+  - ""
+
+  LEAVE-MESSAGE:
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - ""
+  - "&d(|) &5&lTUTORIAL &d(|)"
+  - ""
+  - "&fHaz salido del tutorial de fullpvp"
+  - "&fespero haya sido de ayuda para tu estancia"
+  - "&fen el servidor. Si requiere de mas ayuda usa"
+  - "&fel comando &d(/ayuda) &fo pregunta a un staff"
+  - ""
+  DENY-COMMANDS:
+    MESSAGE: "&4(|) &cNo esta permitido el uso de comandos en el tutorial."
+    COMMANDS:
+    - "/spawn"
+    - "/join"
+    - "/leave"

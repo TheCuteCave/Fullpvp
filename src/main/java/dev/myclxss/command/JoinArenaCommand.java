@@ -1,6 +1,7 @@
 package dev.myclxss.command;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
@@ -16,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import dev.myclxss.API;
+import dev.myclxss.components.Color;
 import dev.myclxss.components.Items;
 import dev.myclxss.components.TitleAPI;
 
@@ -33,7 +35,7 @@ public class JoinArenaCommand implements CommandExecutor {
         if (args.length == 0) {
 
             if (API.getInstance().getArenaUsers().contains(player.getUniqueId())) {
-                player.sendMessage("ya estas dentro de la lista, no puedes volver a entrar");
+                player.sendMessage(API.getInstance().getLang().getString("ARENA.ERROR-JOIN-ARENA", true));
                 return true;
             } else {
                 startCountdown(player);
@@ -45,7 +47,7 @@ public class JoinArenaCommand implements CommandExecutor {
 
     private void startCountdown(Player player) {
         if (countdownTasks.containsKey(player)) {
-            player.sendMessage("Ya estás en medio de una cuenta regresiva.");
+            player.sendMessage(API.getInstance().getLang().getString("ARENA.IN-THE-QUEUE", true));
             return;
         }
         BukkitRunnable countdownTask = new BukkitRunnable() {
@@ -61,13 +63,13 @@ public class JoinArenaCommand implements CommandExecutor {
                                 ChatColor.DARK_RED + "manten presionado shift para cancelar");
                         countdown--;
                     } else {
-                        player.sendMessage(ChatColor.RED + "Has cancelado la cuenta regresiva.");
+                        player.sendMessage(API.getInstance().getLang().getString("ARENA.CANCEL-QUEUE", true));
                         cancel();
                         countdownTasks.remove(player);
                     }
                 } else {
                     if (API.getInstance().getLocations().getConfigurationSection("ARENA") == null) {
-                        player.sendMessage(API.getInstance().getLang().getString("ERROR.ARENA-LOCATION", true));
+                        player.sendMessage(API.getInstance().getLang().getString("ARENA.ERROR-LOCATION", true));
                         cancel();
                         countdownTasks.remove(player);
                         return;
@@ -108,12 +110,18 @@ public class JoinArenaCommand implements CommandExecutor {
                         player.getInventory().setLeggings(Items.legginsKit);
                         player.getInventory().setBoots(Items.bootsKit);
 
-                        player.sendMessage(ChatColor.YELLOW + "Tu inventario estaba vacío, así que te equipamos con una armadura de diamante.");
+                        player.sendMessage(API.getInstance().getLang().getString("ARENA.VOID-IVENTORY", true));
                     } else {
-                        player.sendMessage(ChatColor.GREEN + "Ya tienes items en tu inventario.");
+
                     }
 
-                    player.sendMessage(ChatColor.GOLD + "Has sido enviado a la zona de combate!");
+                    List<String> arenaJoinMessage = API.getInstance().getLang().getStringList("ARENA.JOIN-MESSAGE");
+
+                    for (int i = 0; i < arenaJoinMessage.size(); i++) {
+                        String joinMessage = arenaJoinMessage.get(i);
+                        player.sendMessage(Color.set(joinMessage));
+                    }
+                    player.sendMessage(API.getInstance().getLang().getString("ARENA.SEND-COMBAT", true));
                     player.teleport(location);
                     cancel();
                     countdownTasks.remove(player);

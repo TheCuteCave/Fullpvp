@@ -11,4 +11,7 @@ commands:
 
   leave:
     description: leave command
+
+  tutorial:
+    description: tutorial command
   

@@ -1,7 +1,6 @@
 package dev.myclxss.listener;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -54,8 +53,6 @@ public class ProtectionListener implements Listener {
         float pitch = (float) API.getInstance().getLocations().getDouble("SPAWN.PITCH");
         Location location = new Location(world, x, y, z, yaw, pitch);
         event.setRespawnLocation(location);
-
-        event.getPlayer().sendMessage(ChatColor.GREEN + "Moriste y respawneaste en el spawn");
     }
 
     @EventHandler
