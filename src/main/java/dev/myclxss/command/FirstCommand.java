@@ -2,7 +2,7 @@ package dev.myclxss.command;
 
 import java.util.List;
 
-import org.bukkit.ChatColor;
+import org.bukkit.ChatColor; 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -56,7 +56,7 @@ public class FirstCommand implements CommandExecutor {
             // enviaremos un mensaje
             if (API.getInstance().getLobbyUser().contains(player.getUniqueId())) {
                 player.sendMessage(
-                        ChatColor.YELLOW + player.getName() + Color.set("&fte encuentras en la lista de &eLobby"));
+                        ChatColor.YELLOW + player.getName() + " " + Color.set("&fte encuentras en la lista de &eLobby"));
                 return true;
             }
             if (API.getInstance().getArenaUser().contains(player.getUniqueId())) {

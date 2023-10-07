@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
 import dev.myclxss.command.FirstCommand;
+import dev.myclxss.command.JoinArenaCommand;
 import dev.myclxss.components.Files;
 import dev.myclxss.components.Items;
 import dev.myclxss.event.JoinListener;
@@ -50,6 +51,7 @@ public class API {
     public void loadCommand() {
 
         main.getCommand("fullpvp").setExecutor(new FirstCommand());
+        main.getCommand("join").setExecutor(new JoinArenaCommand());
 
     }
 
