@@ -8,19 +8,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
 import dev.myclxss.command.FirstCommand;
-import dev.myclxss.command.JoinArenaCommand;
-import dev.myclxss.command.LeaveArenaCommand;
-import dev.myclxss.command.TutorialCommand;
 import dev.myclxss.components.Files;
 import dev.myclxss.components.Items;
-import dev.myclxss.listener.JoinListener;
-import dev.myclxss.listener.ProtectionListener;
-import dev.myclxss.listener.TutorialListener;
+import dev.myclxss.event.JoinListener;
 
 public class API {
 
-    private final List<UUID> arenaUsers = new ArrayList<>();
-    private final List<UUID> tutorialUsers = new ArrayList<>();
+    private final List<UUID> lobbyUser = new ArrayList<>();
+    private final List<UUID> arenaUser = new ArrayList<>();
+    private final List<UUID> tutorialUser = new ArrayList<>();
 
     private static API instance;
     private final Fullpvp main;
@@ -48,17 +44,12 @@ public class API {
         PluginManager pluginManager = Bukkit.getPluginManager();
 
         pluginManager.registerEvents(new JoinListener(), main);
-        pluginManager.registerEvents(new ProtectionListener(), main);
-        pluginManager.registerEvents(new TutorialListener(), main);
 
     }
 
     public void loadCommand() {
 
         main.getCommand("fullpvp").setExecutor(new FirstCommand());
-        main.getCommand("join").setExecutor(new JoinArenaCommand());
-        main.getCommand("leave").setExecutor(new LeaveArenaCommand());
-        main.getCommand("tutorial").setExecutor(new TutorialCommand());
 
     }
 
@@ -70,12 +61,17 @@ public class API {
         return instance;
     }
 
-    public List<UUID> getArenaUsers() {
-        return arenaUsers;
+    public List<UUID> getLobbyUser() {
+        return lobbyUser;
     }
 
-    public List<UUID> getTutorialUsers() {
-        return tutorialUsers;
+    public List<UUID> getArenaUser() {
+        return arenaUser;
+    }
+
+    public List<UUID> getTutorialUser() {
+        return tutorialUser;
+
     }
 
     public Files getLang() {
