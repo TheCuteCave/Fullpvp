@@ -10,6 +10,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -37,41 +38,56 @@ public class TutorialCommand implements CommandExecutor {
                 player.sendMessage(API.getInstance().getLang().getString("ERROR.NO-PERMISSION", true));
                 return true;
             }
-            // Verificamos si el jugador se encuentra dentro de la lista (LobbyUser)
-            if (API.getInstance().getLobbyUser().contains(player.getUniqueId())) {
-                // Si se encuentra dentro lo removemos
-                API.getInstance().getLobbyUser().remove(player.getUniqueId());
+            // Verificar si el inventario del jugador está vacío
+            if (isInventoryEmpty(player)) {
+                // Verificamos si el jugador se encuentra dentro de la lista (LobbyUser)
+                if (API.getInstance().getLobbyUser().contains(player.getUniqueId())) {
+                    // Si se encuentra dentro lo removemos
+                    API.getInstance().getLobbyUser().remove(player.getUniqueId());
+                }
+                // Lo agregamos a la lista del tutorial
+                API.getInstance().getTutorialUser().add(player.getUniqueId());
+                // Reproducimos un sonido al jugador para mejorar la experiencia
+                player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 15, 15);
+                // Añadimos un efecto para mejorar la experiencia
+                player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30, 10));
+                // Eliminamos todos los items del jugador para evitar bugs
+                player.getInventory().clear();
+                // Agregamos el item del tutorial
+                player.getInventory().setItem(4, Items.tutorialItem);
+                // Enviamos un titulo al jugador
+                TitleAPI.sendTitle(player, 30, 50, 30, API.getInstance().getLang().getString("TUTORIAL.TITLE"),
+                        API.getInstance().getLang().getString("TUTORIAL.SUBTITLE"));
+                // Enviamos un mensaje en forma de lista
+                List<String> joinMessageString = API.getInstance().getLang().getStringList("TUTORIAL.JOIN-MESSAGE");
+                for (int i = 0; i < joinMessageString.size(); i++) {
+                    String joinMessage = joinMessageString.get(i);
+                    player.sendMessage(Color.set(joinMessage));
+                }
+                // Enviamos al jugador a la ubicacion del tutorial
+                World world = Bukkit.getServer().getWorld(API.getInstance().getLocations().getString("TUTORIAL.WORLD"));
+                double x = API.getInstance().getLocations().getDouble("TUTORIAL.X");
+                double y = API.getInstance().getLocations().getDouble("TUTORIAL.Y");
+                double z = API.getInstance().getLocations().getDouble("TUTORIAL.Z");
+                float yaw = (float) API.getInstance().getLocations().getDouble("TUTORIAL.YAW");
+                float pitch = (float) API.getInstance().getLocations().getDouble("TUTORIAL.PITCH");
+                Location location = new Location(world, x, y, z, yaw, pitch);
+                player.teleport(location);
+                return true;
+            } else {
+                // El jugador tiene elementos en su inventario, cancelamos el codigo
+                player.sendMessage(Color.set("&CNo puedes entrar al tutorial, guarda tus items e inventate de nuevo"));
             }
-            // Lo agregamos a la lista del tutorial
-            API.getInstance().getTutorialUser().add(player.getUniqueId());
-            // Reproducimos un sonido al jugador para mejorar la experiencia
-            player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 15, 15);
-            // Añadimos un efecto para mejorar la experiencia
-            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30, 10));
-            // Eliminamos todos los items del jugador para evitar bugs
-            player.getInventory().clear();
-            // Agregamos el item del tutorial
-            player.getInventory().setItem(4, Items.tutorialItem);
-            // Enviamos un titulo al jugador
-            TitleAPI.sendTitle(player, 30, 50, 30, API.getInstance().getLang().getString("TUTORIAL.TITLE"),
-                    API.getInstance().getLang().getString("TUTORIAL.SUBTITLE"));
-            // Enviamos un mensaje en forma de lista
-            List<String> joinMessageString = API.getInstance().getLang().getStringList("TUTORIAL.JOIN-MESSAGE");
-            for (int i = 0; i < joinMessageString.size(); i++) {
-                String joinMessage = joinMessageString.get(i);
-                player.sendMessage(Color.set(joinMessage));
-            }
-            // Enviamos al jugador a la ubicacion del tutorial
-            World world = Bukkit.getServer().getWorld(API.getInstance().getLocations().getString("TUTORIAL.WORLD"));
-            double x = API.getInstance().getLocations().getDouble("TUTORIAL.X");
-            double y = API.getInstance().getLocations().getDouble("TUTORIAL.Y");
-            double z = API.getInstance().getLocations().getDouble("TUTORIAL.Z");
-            float yaw = (float) API.getInstance().getLocations().getDouble("TUTORIAL.YAW");
-            float pitch = (float) API.getInstance().getLocations().getDouble("TUTORIAL.PITCH");
-            Location location = new Location(world, x, y, z, yaw, pitch);
-            player.teleport(location);
-            return true;
         }
         return false;
+    }
+    // Método para verificar si el inventario del jugador está vacío
+    private boolean isInventoryEmpty(Player player) {
+        for (ItemStack item : player.getInventory().getContents()) {
+            if (item != null) {
+                return false; // El inventario contiene al menos un elemento
+            }
+        }
+        return true; // El inventario está vacío
     }
 }
