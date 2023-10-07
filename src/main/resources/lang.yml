@@ -32,8 +32,8 @@ ERROR:
 TUTORIAL:
   SET-LOCATION: "&2(|) &aLa ubicacion del tutorial se establecio con exito."
   ERROR-LOCATION: "&4(|) &cLa ubicacion del tutorial no existe."
-  TITLE: "&5&lBienvenido"
-  SUBTITLE: "&fa shiny fullpvp"
+  TITLE: "&d&lBIENVENDIO"
+  SUBTITLE: "&eA LA MODALIDAD FULLPVP"
   JOIN-MESSAGE:
   - ""
   - ""
@@ -88,3 +88,4 @@ TUTORIAL:
     - "/spawn"
     - "/join"
     - "/leave"
+    - "/tutorial"

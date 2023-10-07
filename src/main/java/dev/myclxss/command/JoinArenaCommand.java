@@ -15,6 +15,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import dev.myclxss.API;
@@ -81,12 +83,16 @@ public class JoinArenaCommand implements CommandExecutor {
                         TitleAPI.sendTitle(player, 30, 50, 30,
                                 Color.set("&5&lEntrando en") + " " + ChatColor.YELLOW + countdown,
                                 Color.set("&cmanten shift para cancelar"));
+                        player.playSound(player.getLocation(), Sound.NOTE_PIANO, 15, 15);
 
                         countdown--;
                     } else {
                         // Si el jugador uso (shift) cancelamos la cuenta regresia y enviamos un mensaje
                         // de cancelacion
+
                         player.sendMessage(API.getInstance().getLang().getString("ARENA.CANCEL-QUEUE", true));
+                        // Reproducimos un sonido al jugador para mejorar la experiencia
+                        player.playSound(player.getLocation(), Sound.ANVIL_BREAK, 15, 15);
                         cancel();
                         // removemos al jugador de la lsita de cuenta regresiva
                         countdownTasks.remove(player);
@@ -94,12 +100,13 @@ public class JoinArenaCommand implements CommandExecutor {
                 } else {
                     if (API.getInstance().getLobbyUser().contains(player.getUniqueId())) {
                         API.getInstance().getLobbyUser().remove(player.getUniqueId());
-                        player.sendMessage("ya que estuviste en la lista lobby, fuiste removido");
                     }
                     // Al entrar a la arena, añadimos al jugador a la lista (ArenaUser)
                     API.getInstance().getArenaUser().add(player.getUniqueId());
-                    // Reproducimos un sonido para mejorar la experiencia
-                    player.playSound(player.getLocation(), Sound.ANVIL_BREAK, 15, 15);
+                    // Reproducimos un sonido al jugador para mejorar la experiencia
+                    player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 15, 15);
+                    // Añadimos un efecto para mejorar la experiencia
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30, 10));
                     // Enviamos un mensaje de entrada a la arena en forma de lista
                     List<String> arenaJoinMessage = API.getInstance().getLang().getStringList("ARENA.JOIN-MESSAGE");
                     for (int i = 0; i < arenaJoinMessage.size(); i++) {

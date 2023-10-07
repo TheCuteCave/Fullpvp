@@ -9,9 +9,12 @@ import org.bukkit.plugin.PluginManager;
 
 import dev.myclxss.command.FirstCommand;
 import dev.myclxss.command.JoinArenaCommand;
+import dev.myclxss.command.LeaveArenaCommand;
+import dev.myclxss.command.TutorialCommand;
 import dev.myclxss.components.Files;
 import dev.myclxss.components.Items;
 import dev.myclxss.event.JoinListener;
+import dev.myclxss.event.TutorialListener;
 
 public class API {
 
@@ -45,6 +48,7 @@ public class API {
         PluginManager pluginManager = Bukkit.getPluginManager();
 
         pluginManager.registerEvents(new JoinListener(), main);
+        pluginManager.registerEvents(new TutorialListener(), main);
 
     }
 
@@ -52,6 +56,8 @@ public class API {
 
         main.getCommand("fullpvp").setExecutor(new FirstCommand());
         main.getCommand("join").setExecutor(new JoinArenaCommand());
+        main.getCommand("leave").setExecutor(new LeaveArenaCommand());
+        main.getCommand("tutorial").setExecutor(new TutorialCommand());
 
     }
 

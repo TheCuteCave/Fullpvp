@@ -5,11 +5,13 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.World; 
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import dev.myclxss.API;
@@ -33,24 +35,19 @@ public class JoinListener implements Listener {
             }
             // Si la ubicacion del tutorial existe, continuamos con el codigo y añadimos al
             // jugador a una lista llamada (TutorialUser)
-            // Primero verificamos si el jugador se encuentra ya dentro de la lista, si es
-            // asi lo removemos para evitar bugs
-            if (API.getInstance().getTutorialUser().contains(player.getUniqueId())) {
-                // Aqui removemos al jugador de la lista
-                API.getInstance().getTutorialUser().remove(player.getUniqueId());
-            }
-            // Aqui es donde agregamos al jugador a la lista
             API.getInstance().getTutorialUser().add(player.getUniqueId());
 
             // Borramos el inventario del jugador en su totalidad
             player.getInventory().clear();
             // Añadimos un item, en este caso con el que el jugador podra salir del modo
             // tutorial
-            player.getInventory().setItem(8, Items.tutorialItem);
+            player.getInventory().setItem(4, Items.tutorialItem);
             // Reproducimos un sonido al jugador para mejorar la experiencia
-            player.playSound(player.getLocation(), Sound.LEVEL_UP, 15, 15);
+            player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 15, 15);
+            // Añadimos un efecto para mejorar la experiencia
+            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30, 10));
             // Enviamos un titulo al jugador
-            TitleAPI.sendTitle(player, 30, 50, 30, API.getInstance().getLang().getString("TUTORIAL.TITLE"),
+            TitleAPI.sendTitle(player, 40, 60, 40, API.getInstance().getLang().getString("TUTORIAL.TITLE"),
                     API.getInstance().getLang().getString("TUTORIAL.SUBTITLE"));
             // Enviamos un mensaje de bienvenida al jugador, en formato lista.
             List<String> joinTutorialString = API.getInstance().getLang().getStringList("TUTORIAL.JOIN-MESSAGE");
@@ -71,6 +68,7 @@ public class JoinListener implements Listener {
                     player.teleport(loc);
                 }
             }).runTaskLater(API.getInstance().getMain(), 3L);
+            return;
         }
         // Si el jugador ya entro antes, verficamos si la ubicacion del spawn principal
         // existe si no existe enviamos un mensaje de error y no continua el codigo.
@@ -89,8 +87,10 @@ public class JoinListener implements Listener {
         }
         // Aqui agregamos al jugador a la lista
         API.getInstance().getLobbyUser().add(player.getUniqueId());
-        // Reproducimos un sonido para mejorar la experiencia
-        player.playSound(player.getLocation(), Sound.NOTE_PLING, 15, 15);
+        // Reproducimos un sonido al jugador para mejorar la experiencia
+        player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 15, 15);
+        // Añadimos un efecto para mejorar la experiencia
+        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30, 10));
         // Enviamos al jugador a la ubicacion del spawn principal
         (new BukkitRunnable() {
             public void run() {
