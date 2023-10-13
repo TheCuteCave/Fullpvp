@@ -1,0 +1,17 @@
+name: Fullpvp
+version: '1.0-SNAPSHOT'
+main: dev.myclxss.Fullpvp
+
+commands:
+  fullpvp:
+    description: main command
+
+  join:
+    description: join command
+
+  leave:
+    description: leave command
+
+  tutorial:
+    description: tutorial command
+  

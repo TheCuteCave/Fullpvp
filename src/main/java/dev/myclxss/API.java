@@ -15,6 +15,8 @@ import dev.myclxss.components.Files;
 import dev.myclxss.components.Items;
 import dev.myclxss.event.JoinListener;
 import dev.myclxss.event.TutorialListener;
+import dev.myclxss.event.UserListener;
+import dev.myclxss.event.WorldListener;
 
 public class API {
 
@@ -49,6 +51,8 @@ public class API {
 
         pluginManager.registerEvents(new JoinListener(), main);
         pluginManager.registerEvents(new TutorialListener(), main);
+        pluginManager.registerEvents(new UserListener(), main);
+        pluginManager.registerEvents(new WorldListener(), main);
 
     }
 

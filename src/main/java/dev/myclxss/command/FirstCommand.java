@@ -2,7 +2,7 @@ package dev.myclxss.command;
 
 import java.util.List;
 
-import org.bukkit.ChatColor; 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -34,7 +34,7 @@ public class FirstCommand implements CommandExecutor {
                 // Si no cuenta con los permisos suficientes se envia un mensaje de error y el
                 // codigo no continua
                 player.sendMessage(API.getInstance().getLang().getString("ERROR.NO-PERMISSION", true));
-                return true; 
+                return true;
             }
             // Aqui enviamos el mensaje en forma de lista obtenido de una string
             List<String> helpString = Color.set(API.getInstance().getLang().getStringList("HELP-MESSAGE"));
@@ -56,7 +56,8 @@ public class FirstCommand implements CommandExecutor {
             // enviaremos un mensaje
             if (API.getInstance().getLobbyUser().contains(player.getUniqueId())) {
                 player.sendMessage(
-                        ChatColor.YELLOW + player.getName() + " " + Color.set("&fte encuentras en la lista de &eLobby"));
+                        ChatColor.YELLOW + player.getName() + " "
+                                + Color.set("&fte encuentras en la lista de &eLobby"));
                 return true;
             }
             if (API.getInstance().getArenaUser().contains(player.getUniqueId())) {
@@ -137,6 +138,26 @@ public class FirstCommand implements CommandExecutor {
                 API.getInstance().getLocations().set("TUTORIAL.PITCH", Float.valueOf(player.getLocation().getPitch()));
                 API.getInstance().getLocations().save();
                 player.sendMessage(API.getInstance().getLang().getString("TUTORIAL.SET-LOCATION", true));
+                return true;
+            }
+            if (args.length > 1 && args[1].equalsIgnoreCase("spectator")) {
+                // Verficamos si el jugador cuenta con los permisos necersario
+                if (!player.hasPermission("fullpvp.setspectator") || !player.hasPermission("fullpvp.all")) {
+                    // Si no cuenta con los permisos suficientes enviamos un mensaje de error y el
+                    // codigo se detiene.
+                    player.sendMessage(API.getInstance().getLang().getString("ERROR.NO-PERMISSION"));
+                    return true;
+                }
+                // Si cuenta con los permisos suficientes establecemos la ubicacion del tutorial
+                // en un archivo yml
+                API.getInstance().getLocations().set("SPECTATOR.WORLD", player.getLocation().getWorld().getName());
+                API.getInstance().getLocations().set("SPECTATOR.X", Double.valueOf(player.getLocation().getX()));
+                API.getInstance().getLocations().set("SPECTATOR.Y", Double.valueOf(player.getLocation().getY()));
+                API.getInstance().getLocations().set("SPECTATOR.Z", Double.valueOf(player.getLocation().getZ()));
+                API.getInstance().getLocations().set("SPECTATOR.YAW", Float.valueOf(player.getLocation().getYaw()));
+                API.getInstance().getLocations().set("SPECTATOR.PITCH", Float.valueOf(player.getLocation().getPitch()));
+                API.getInstance().getLocations().save();
+                player.sendMessage(API.getInstance().getLang().getString("SPECTATOR.SET-LOCATION", true));
                 return true;
             }
         }
